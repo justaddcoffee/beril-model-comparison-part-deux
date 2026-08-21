@@ -61,3 +61,22 @@ and produced an answer — the harness failed to kill the detached process. That
 and the table above now counts it as wrong rather than unanswered. Re-running the open models
 sequentially, one request per deployment at a time, is the experiment that would separate model
 capability from quota contention.
+
+## 4. How the traces were analysed
+
+Timings above were parsed twice by independent code. The second pass used the omp transcript
+reader from [evalome](https://github.com/justaddcoffee/coscientist-bench), which read all 16
+transcripts with **zero malformed lines**, recovered the model ids from the records rather than
+being told them, and reproduced the per-step figures to within ~7% of the first pass (38.9 s vs
+36.2 s per step for GLM; 36.5 s vs 39.7 s for Kimi). Agreement between two parsers is why the
+timing claims here are stated as measurements rather than estimates.
+
+evalome's `collect` pipeline was **not** usable: it grades BERIL research projects and requires a
+project directory holding a plan, notebooks and a report. A benchmark run is one-shot question
+answering with no such directory, so the reader was used as a library instead. Running the full
+pipeline on benchmark traces would need a new adapter alongside the existing `beril` and `koros`
+ones.
+
+Two defects in the trace set are worth recording for anyone reproducing this: two of the sixteen
+files are byte-identical duplicates, so there are **14 unique traces, not 16**, and the run that
+overshot its cap means concurrency during the pilot was higher than the harness intended.
