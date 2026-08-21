@@ -9,8 +9,6 @@ Follow-up to [beril-model-comparison](https://justaddcoffee.github.io/beril-mode
 
 ## 1. Correctness — the main question
 
-![accuracy](fig1_accuracy.png)
-
 **Every question Kimi K3 finished, it got right — the same as Opus. GLM 5.2 did not.**
 
 | arm | correct | wrong | never answered | **accuracy when it answered** | of all 13 asked |
@@ -43,8 +41,6 @@ timeout, not an error or refusal. Failures cluster in T2 computation and T3 synt
 than T1 retrieval.
 
 ## 3. Cost per answer delivered
-
-![cost](fig2_cost.png)
 
 Per answer *actually produced* — the denominator that matters, since a timed-out question still
 consumes the full budget:
