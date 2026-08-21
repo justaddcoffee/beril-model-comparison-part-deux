@@ -15,7 +15,7 @@ Follow-up to [beril-model-comparison](https://justaddcoffee.github.io/beril-mode
 |---|---|---|---|---|---|
 | Claude Code + Opus 4.8 | **13** | 0 | 0 | **100%** (13/13) | **100%** |
 | omp + Kimi K3 | **9** | 0 | 4 | **100%** (9/9) | 69% |
-| omp + GLM 5.2 | 4 | 2 | 7 | **67%** (4/6) | 31% |
+| omp + GLM 5.2 | 4 | 3 | 6 | **57%** (4/7) | 31% |
 
 Denominator is the **13 machine-gradeable questions**: 20 minus 5 prose T4 items needing human
 adjudication, minus 2 whose answer key is disputed (§4). Grading checks the value against the
@@ -39,3 +39,25 @@ questions, not 13.
 Kimi failed to answer **4 of 13**, GLM **7 of 13**, Opus **0**. Every failure is an 1800 s
 timeout, not an error or refusal. Failures cluster in T2 computation and T3 synthesis rather
 than T1 retrieval.
+
+## 3. Why the open models ran out of time
+
+**Azure rate limiting, not model speed** — and it was an artifact of how this pilot was run.
+
+The transcripts contain 22 records reading `429 … exceeded rate limit. retry-after-ms=13784`.
+Called directly, both models answer in **1.3–5.9 s** at 40 K context. Inside the run, **77% of
+wall clock sat inside API request cycles and ~90% of each cycle was before the first token** —
+waiting, not generating. Actual decode ran at 85–132 tok/s on 200–400-token outputs, so real
+generation was 2–4 s per turn.
+
+The cause was the harness: two questions in flight × two omp arms sent **four concurrent
+large-context requests at one deployment**. Azure quotas are per-deployment, so Opus — on a
+separate deployment — never competed for the same budget and never timed out. **The completion
+gap in §2 therefore measures the test setup at least as much as it measures the models.** Two
+or three timeouts were separately caused by slow lakehouse queries rather than throttling.
+
+**Known defect:** one GLM run scored as a timeout actually kept running 17 minutes past the cap
+and produced an answer — the harness failed to kill the detached process. That answer was wrong,
+and the table above now counts it as wrong rather than unanswered. Re-running the open models
+sequentially, one request per deployment at a time, is the experiment that would separate model
+capability from quota contention.
