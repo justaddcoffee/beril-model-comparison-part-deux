@@ -1,5 +1,5 @@
 ---
-title: "Are the open models' answers right?"
+title: "Open model pilot benchmark"
 description: "BERIL benchmark pilot — Opus 4.8 vs Kimi K3 vs GLM 5.2, 20 questions on the live lakehouse"
 ---
 

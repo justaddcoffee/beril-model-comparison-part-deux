@@ -1,4 +1,4 @@
-# Are the open models' answers right?
+# Open model pilot benchmark
 
 Source for <https://justaddcoffee.github.io/beril-model-comparison-part-deux/>.
 
