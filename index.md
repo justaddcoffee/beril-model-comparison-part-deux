@@ -10,11 +10,11 @@ Part two of [beril-model-comparison](https://justaddcoffee.github.io/beril-model
 
 **Kimi K3 has not yet produced a wrong answer. Opus is perfect. GLM 5.2 is not.**
 
-| arm | correct | wrong | never answered | accuracy when it answered | of all 13 asked |
-|---|---|---|---|---|---|
-| Claude Code + Opus 4.8 | 13 | 0 | 0 | **100%** (13/13) | **100%** |
-| omp + Kimi K3 | 12 | **0** | 1 | **100%** (12/12) | **92%** |
-| omp + GLM 5.2 | 9 | 3 | 1 | 75% (9/12) | 69% |
+| arm | correct | wrong | never answered | accuracy when it answered |
+|---|---|---|---|---|
+| Claude Code + Opus 4.8 | 13 | 0 | 0 | **100%** (13/13) |
+| omp + Kimi K3 | 12 | **0** | 1 | **100%** (12/12) |
+| omp + GLM 5.2 | 9 | 3 | 1 | 75% (9/12) |
 
 Denominator is the **13 machine-gradeable questions**: 20 minus 5 prose T4 items needing human
 adjudication, minus 2 whose answer key is disputed. Grading checks the value against the key's
