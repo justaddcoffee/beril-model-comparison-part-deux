@@ -1,9 +1,9 @@
 ---
 title: "Open model pilot benchmark"
-description: "BERIL benchmark pilot — Opus 4.8 vs Kimi K3 vs GLM 5.2, 20 questions on the live lakehouse"
+description: "BERIL benchmark pilot — Opus 4.8 vs Kimi K3 vs GLM 5.2, pilot questions on the live lakehouse"
 ---
 
-**2026-08-21 · 20 questions × 3 arms on BERDL JupyterHub**
+**2026-08-21 · pilot questions × 3 arms on BERDL JupyterHub**
 Part two of [beril-model-comparison](https://justaddcoffee.github.io/beril-model-comparison/).
 
 ## 1. Correctness — the main question

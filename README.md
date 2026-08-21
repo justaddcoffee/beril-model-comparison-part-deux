@@ -4,7 +4,7 @@ Source for <https://justaddcoffee.github.io/beril-model-comparison-part-deux/>.
 
 Part two of [beril-model-comparison](https://justaddcoffee.github.io/beril-model-comparison/).
 Where part one compared cost per *token*, this one asks whether the answers are **correct** —
-20 questions from the BERIL evaluation benchmark, three arms, run against the live KBase
+Pilot questions from the BERIL evaluation benchmark, three arms, run against the live KBase
 BER Data Lakehouse on 2026-08-21.
 
 Headline: **Kimi K3 got right every question it finished (9/9), matching Opus. Its weakness is
