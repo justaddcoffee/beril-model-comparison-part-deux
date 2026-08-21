@@ -33,7 +33,32 @@ specifically T3 synthesis.** Counting the unscored prose tier, T4 defeated both 
 than any other — three of Kimi's timeouts and two of GLM's fall there, and one T4 question timed
 out for both at the full cap.
 
-## 3. The first attempt measured the wrong thing
+## 3. GLM's wrong answers came under the wire
+
+GLM's failures are mostly time-related, not reasoning-related, and the accuracy column above
+overstates the difference in capability. Its wrong answers took **three times longer** than its
+correct ones — mean 1,292 s against 411 s:
+
+| question | tier | verdict | elapsed |
+|---|---|---|---|
+| AFMSA-T1-02 | T1 | wrong | 1,593 s — 88% of the cap |
+| AFMSA-T2-01 | T2 | wrong | 1,742 s — 97% of the cap |
+| ESSG-T3-01 | T3 | wrong | 540 s |
+
+Two of the three were produced with the clock nearly out, which is the signature of an agent
+finishing because it must rather than because it has converged. `AFMSA-T2-01` is the sharpest
+case: Kimi answered it correctly in 269 s; GLM spent 1,742 s and got it wrong. Only `ESSG-T3-01`
+looks like a clean reasoning failure — unhurried, and wrong on both the entity and the magnitude.
+
+Counting the two outright timeouts, **four of GLM's five non-T4 failures are time-related**. It
+grinds: 38–61 API calls and 41–76 tool calls on the questions it loses, against 26–36 on those it
+wins. The counter-example is `ESSG-T3-02` — 713 s, 53 API calls, and correct — so slow does not
+automatically mean wrong.
+
+The open experiment is to re-run GLM's five failures at a 3600 s cap. If the two near-cap wrongs
+and the two timeouts convert, the honest description is "GLM is slower, not less capable."
+
+## 4. The first attempt measured the wrong thing
 
 An earlier run of this same benchmark had Kimi failing 4 of 13 and GLM 7 of 13. That was almost
 entirely an artifact of Azure quota, not model capability, and it is worth recording because the
@@ -61,7 +86,7 @@ previously returned three `429`s now return four `200`s in 2.6–9.1 s, and time
 The residual timeouts are the interesting part: they are concentrated in T4 and did **not**
 disappear with the quota, so that share is genuine difficulty rather than throttling.
 
-## 4. What this cannot tell you
+## 5. What this cannot tell you
 
 - **n = 13 scored.** Opus and Kimi are one question apart; nothing here separates them.
 - **T4 is unscored** — 5 prose questions per arm await human adjudication.
@@ -74,7 +99,7 @@ disappear with the quota, so that share is genuine difficulty rather than thrott
 - **87 of the benchmark's 174 answers appear verbatim in public repo documents** the agent can
   read. No arm was observed exploiting it.
 
-## 5. How the traces were analysed
+## 6. How the traces were analysed
 
 Timings were parsed twice by independent code. The second pass used the omp transcript reader
 from [evalome](https://github.com/justaddcoffee/coscientist-bench), which read every transcript
