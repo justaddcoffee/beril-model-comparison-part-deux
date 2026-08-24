@@ -1,6 +1,32 @@
 ---
 title: "Open model pilot benchmark"
-description: "BERIL benchmark pilot — Opus 4.8 vs Kimi K3 vs GLM 5.2, pilot questions on the live lakehouse"
+description: "SUPERSEDED — BERIL benchmark pilot — Opus 4.8 vs Kimi K3 vs GLM 5.2, pilot questions on the live lakehouse"
+---
+
+> ## ⚠️ Superseded — and its headline numbers were wrong
+>
+> **This page is obsolete.** It was a 20-question pilot whose real purpose was proving
+> the plumbing worked: three arms running concurrently, per-question pairing, honest
+> grading. Only **13 questions** were machine-scoreable.
+>
+> It has since been superseded by a full run of all **174 questions × 3 arms**, and two
+> problems with the pilot came to light:
+>
+> 1. **The checkout was contaminated.** The benchmark questions were written from prior
+>    BERIL research that ships in the repo, and the agents were reading it. On an
+>    unpruned checkout, **90 of 96** scoreable answers are findable on disk.
+> 2. **n = 13 was far too small** to separate the arms.
+>
+> On the full run, with contaminated questions screened out, the three arms score
+> **64.8% / 64.8% / 64.6% — indistinguishable.** In particular the "GLM 5.2 is the weak
+> arm" conclusion below does **not** survive: GLM matched the others, and cost about a
+> tenth as much.
+>
+> Those results are held privately with the BERIL team, because the write-up quotes
+> benchmark questions and disputed answer-key values. Ask Justin for access.
+>
+> *Kept online for provenance only. Do not quote the numbers below.*
+
 ---
 
 **2026-08-21 · pilot questions × 3 arms on BERDL JupyterHub**
